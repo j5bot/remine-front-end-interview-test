@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+# ABOUT: script to run npm commands in multiple folders
+# specify folders in .folders
+
+COMMAND="$@"
+INITIAL_COMMAND="$COMMAND"
+WD="$(pwd)"
+
+# install local npm if necessary
+if [ ! -d "$WD/node_modules" ]; then
+  echo "Installing local npm ..."
+  npm install
+fi
+
+COMMAND="$WD/node_modules/.bin/npm $INITIAL_COMMAND"
+
+# start the servers in the background
+if [ "$INITIAL_COMMAND" == "start" ]; then
+  COMMAND="npm run start 2>&1 > out.log &"
+fi
+
+# stop the server background processes
+if [ "$INITIAL_COMMAND" == "stop" ]; then
+  COMMAND="if [ ! -f "'$PIDFILE'" ]; then pkill -15 -P \$(pgrep -P \$(cat "'$PIDFILE'")); pkill -P \$(cat "'$PIDFILE'"); else echo Could not .pid temp file ...; fi"
+fi
+
+# use the tail command to watch output of servers
+if [ "$INITIAL_COMMAND" == "log" ]; then
+  COMMAND="tail -f */out.log"
+fi
+
+# use rm and pv to remove node_modules directories
+if [ "$INITIAL_COMMAND" == "clean" ]; then
+  # determine if command "pv" is installed
+  which pv 2>&1 > /dev/null
+
+  # install command "pv" if necessary
+  if [ $? -ne 0 ]; then
+    echo "Installing pv using homebrew ..."
+    brew install pv
+    echo -e
+  fi
+
+  # set command to remove "node_modules" directories (showing progress)
+  COMMAND="ls ./node_modules 2>&1 > /dev/null && rm -rv ./node_modules | pv -l -s $( du -a ./node_modules 2> /dev/null | wc -l ) > /dev/null"
+fi
+
+# iterate over folders in .folders
+# execute the command in each folder
+for folder in $(cat ./.folders)
+do
+
+  echo "executing $INITIAL_COMMAND in $folder"
+  pushd "$folder" 2>&1 > /dev/null
+
+  # create variables for temporary files
+  CMDFILE="${TMPDIR}$(pwd | sed "s|/|.|g").cmd"
+  PIDFILE="${TMPDIR}$(pwd | sed "s|/|.|g").pid"
+
+  # write the command script to a temporary file
+  echo "$COMMAND" > "$CMDFILE"
+  # write the process id for the command to a temporary file
+  echo "PID="'$!'"; echo "'$PID'" > $PIDFILE" >> $CMDFILE
+
+  # execute the commands in the command temporary file by sourcing the file
+  source "$CMDFILE"
+
+  # insert a line break
+  echo -e
+
+  popd 2>&1 > /dev/null
+done

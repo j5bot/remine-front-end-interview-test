@@ -1,0 +1,33 @@
+{
+  "name": "remine-front-end-interview-test",
+  "version": "1.0.0",
+  "description": "Wrapper package for front-end-interview-test",
+  "main": "N/A",
+  "private": true,
+  "scripts": {
+    "audit": "./bin/npm-run audit",
+    "audit-fix": "./bin/npm-run audit fix",
+    "clean": "./bin/npm-run clean",
+    "install": "./bin/npm-run install",
+    "start": "./bin/npm-run start",
+    "stop": "./bin/npm-run stop",
+    "tail": "tail -f */out.log",
+    "test": "./bin/npm-run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/j5bot/remine-front-end-interview-test.git"
+  },
+  "keywords": [
+    "Remine"
+  ],
+  "author": "Jonathan Cook <hire.jonathan.cook.in.2018@gmail.com>",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/j5bot/remine-front-end-interview-test/issues"
+  },
+  "homepage": "https://github.com/j5bot/remine-front-end-interview-test#readme",
+  "dependencies": {
+    "npm": "^6.4.1"
+  }
+}
