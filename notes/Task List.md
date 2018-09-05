@@ -2,11 +2,17 @@
 
 --
 
-1. [ ] Create `git-flow` branches in repository
-2. [ ] Create `setup` feature branch
-3. [ ] Commit new / modified files to `setup` branch
-4. [ ] Create pull request to merge `setup` branch into `master`
-5. [ ] Publish `setup` feature branch
+1. [x] Create `git-flow` branches in repository
+2. [x] Create `setup` feature branch
+3. [x] Commit new / modified files to `setup` branch
+4. [x] Create pull request to merge `setup` branch into `develop`
+5. [x] Publish `setup` feature branch
+6. [x] Finish `setup` feature
+7. [x] Create `setup` release (merges `develop` into `master`)
+8. [x] Publish `setup` release
+9. [x] Create `task-list` feature branch
+10. [x] Publish `task-list` feature branch
+11. [ ] Create 
 
 --
 
