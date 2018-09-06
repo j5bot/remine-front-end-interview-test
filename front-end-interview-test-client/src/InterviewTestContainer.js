@@ -14,7 +14,8 @@ class InterviewTestContainer extends Component {
         this.state = {
             buildingTypes: [],
             locations: [],
-            filters: {}
+            filters: {},
+            filteredLocations: []
         };
     }
 
@@ -43,7 +44,8 @@ class InterviewTestContainer extends Component {
         locationsPromise.then(
             (resolved) => {
                 this.setState({
-                    locations: resolved.data
+                    locations: resolved.data,
+                    filteredLocations: resolved.data
                 });
             }
         );
@@ -62,6 +64,29 @@ class InterviewTestContainer extends Component {
             filters[name] = parseInt(value, 10);
         }
         this.setState({filters});
+        this.filterLocations(filters);
+    }
+
+    filterLocations(filters) {
+        const filteredLocations = this.state.locations.filter(
+            (location) => {
+                if (filters.beds && filters.beds !== location.beds) {
+                    return false;
+                }
+                if (filters.baths && filters.baths !== location.baths) {
+                    return false;
+                }
+                if (filters.buildingType &&
+                    filters.buildingType !== location.buildingType.id) {
+                    return false;
+                }
+                return true;
+            }
+        );
+
+        this.setState({
+            filteredLocations
+        });
     }
 
     render() {
@@ -73,7 +98,7 @@ class InterviewTestContainer extends Component {
                     <RemineFilters buildingTypes={state.buildingTypes}
                         handleChange={this.handleFilterChange} />
                 </div>
-                <RemineTable properties={state.locations} />
+                <RemineTable properties={state.filteredLocations} />
             </div>
         );
     }

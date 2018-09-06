@@ -25,11 +25,14 @@
 3. coding
 
 	1. [ ] Consider adding a `redux` store as state container to `InterviewTestContainer`
-	2. [ ] Get building types using `API`
-	3. [ ] Create `RemineFilters` component
-	4. [ ] Add `RemineFilters` component to `InterviewTestContainer` component, providing building types data to the component
-	5. [ ] Filter data provided to `RemineTable` based on filters selected in `RemineFilters` component
-
+	2. [x] Get building types using `API`
+	3. [x] Get properties/locations using `API`
+	3. [x] Create `RemineFilters` component
+	4. [x] Add `RemineFilters` component to `InterviewTestContainer` component
+	5. [x] Tie `RemineFilters` input to `InterviewTestContainer` component state
+	5. [ ] Filter data provided to `RemineTable` based on filters selected in `RemineFilters` component (see TODO)
+	5. [ ] Provide building types data to the `RemineFilters` component
+	
 4. cleanup
 
 	1. [ ] Remove instructional markup from the `App` component
