@@ -13,10 +13,12 @@ class RemineFilters extends Component {
                 <div className="filter">
                     <label>Beds</label>
                     <input type="number" name="beds" onChange={this.props.handleChange}/>
+                    <label><input type="checkbox" name="bedsAtLeast" value="checked" onChange={this.props.handleChange}/> at least</label>
                 </div>
                 <div className="filter">
                     <label>Baths</label>
                     <input type="number" name="baths" onChange={this.props.handleChange}/>
+                    <label><input type="checkbox" name="bathsAtLeast" value="checked" onChange={this.props.handleChange}/> at least</label>
                 </div>
                 <div className="filter">
                     <label>Building Type</label>

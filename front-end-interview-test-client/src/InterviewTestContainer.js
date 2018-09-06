@@ -60,12 +60,17 @@ class InterviewTestContainer extends Component {
 
     handleFilterChange(event) {
         const name = event.target.name;
-        const value = event.target.value;
+        const checked = event.target.checked;
+        let value = event.target.value;
 
-        console.log(name, value);
+        if (value === 'checked') {
+            value = (checked && 1) || 0;
+        }
+
+        console.log(name, value, checked);
         const filters = this.state.filters;
 
-        if (value === "") {
+        if (!Boolean(value)) {
             delete filters[name];
         } else {
             filters[name] = parseInt(value, 10);
@@ -80,6 +85,8 @@ class InterviewTestContainer extends Component {
             this.state.filteredLocationsCache[currentFilter];
         const isCached = Boolean(cachedFilteredLocations);
 
+        console.log( currentFilter );
+
         if (isCached) {
             this.setState({
                 filteredLocations: cachedFilteredLocations
@@ -89,17 +96,17 @@ class InterviewTestContainer extends Component {
 
         const filteredLocations = this.state.locations.filter(
             (location) => {
-                if (filters.beds && filters.beds !== location.beds) {
-                    return false;
+
+                switch(true) {
+                    case filters.beds && filters.bedsAtLeast && filters.beds > location.beds:
+                    case filters.beds && !filters.bedsAtLeast && filters.beds !== location.beds:
+                    case filters.baths && filters.bathsAtLeast && filters.baths > location.baths:
+                    case filters.baths && !filters.bathsAtLeast && filters.baths !== location.baths:
+                    case filters.buildingType && filters.buildingType !== location.buildingType.id:
+                        return false;
+                    default:
+                        return true;
                 }
-                if (filters.baths && filters.baths !== location.baths) {
-                    return false;
-                }
-                if (filters.buildingType &&
-                    filters.buildingType !== location.buildingType.id) {
-                    return false;
-                }
-                return true;
             }
         );
 
