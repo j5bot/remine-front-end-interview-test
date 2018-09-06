@@ -15,6 +15,7 @@ class InterviewTestContainer extends Component {
             buildingTypes: [],
             locations: [],
             filters: {},
+            filteredLocationsCache: {},
             filteredLocations: []
         };
     }
@@ -43,9 +44,15 @@ class InterviewTestContainer extends Component {
 
         locationsPromise.then(
             (resolved) => {
+                const defaultFilter = JSON.stringify({});
+                const filteredLocationsCache = {
+                    ...this.state.filteredLocationsCache,
+                    [defaultFilter]: resolved.data
+                };
                 this.setState({
                     locations: resolved.data,
-                    filteredLocations: resolved.data
+                    filteredLocations: resolved.data,
+                    filteredLocationsCache
                 });
             }
         );
@@ -68,6 +75,18 @@ class InterviewTestContainer extends Component {
     }
 
     filterLocations(filters) {
+        const currentFilter = JSON.stringify(filters);
+        const cachedFilteredLocations =
+            this.state.filteredLocationsCache[currentFilter];
+        const isCached = Boolean(cachedFilteredLocations);
+
+        if (isCached) {
+            this.setState({
+                filteredLocations: cachedFilteredLocations
+            });
+            return;
+        }
+
         const filteredLocations = this.state.locations.filter(
             (location) => {
                 if (filters.beds && filters.beds !== location.beds) {
@@ -84,8 +103,14 @@ class InterviewTestContainer extends Component {
             }
         );
 
+        const filteredLocationsCache = {
+            ...this.state.filteredLocationsCache,
+            [currentFilter]: filteredLocations
+        };
+
         this.setState({
-            filteredLocations
+            filteredLocations,
+            filteredLocationsCache
         });
     }
 
