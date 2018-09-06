@@ -11,12 +11,29 @@
 
     flex-shrink: 0;
     flex-grow: 0;
-    flex-basis: 15rem;
+    flex-basis: 18rem;
 
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     justify-content: flex-start;
+    text-align: left;
+}
+
+.filtersContainer .filter > label {
+    font-weight: bold;
+}
+
+.filtersContainer .filter label {
+    display: block;
+    height: 1.9rem;
+    position: relative;
+}
+
+.filtersContainer .filter label input {
+    position: absolute;
+    right: 0;
+    text-align: center;
 }
 
 .filtersContainer .filter > * {
@@ -25,9 +42,36 @@
     flex-basis: 2rem;
 }
 
-.filtersContainer .filter > input,
+.filtersContainer .filter > div > label > input,
 .filtersContainer .filter > select,
 .filtersContainer .filter > select > option {
     text-align: center;
     flex-basis: 1.5rem;
+}
+.filtersContainer .filter > div > label > input {
+    font-size: 1rem;
+    padding: 0.15rem 0.05rem;
+    height: 1.1rem;
+}
+.filtersContainer .filter > select,
+.filtersContainer .filter > select > option {
+    font-size: 1rem;
+    padding: 0.5rem;
+    height: 1.5rem;
+}
+
+.styled-select {
+    background-color: white;
+
+    height: 1.5rem;
+    width: 15rem;
+    overflow: hidden;
+}
+.styled-select select {
+    background: transparent;
+
+    font-size: 1rem;
+    height: 1.5rem;
+    padding: 0.5rem;
+    width: 15rem;
 }
