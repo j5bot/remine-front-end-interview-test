@@ -4,6 +4,10 @@ import './RemineFilters.css';
 
 class RemineFilters extends Component {
     render() {
+        const makeBuildingType = (buildingType) => {
+            return (<option value={buildingType.id}>{buildingType.name}</option>);
+        };
+
         return (
             <div className="filtersContainer">
                 <div className="filter">
@@ -15,8 +19,11 @@ class RemineFilters extends Component {
                     <input type="number" name="baths" onChange={this.props.handleChange}/>
                 </div>
                 <div className="filter">
-                    <label>Building Type (id)</label>
-                    <input type="number" name="buildingType" onChange={this.props.handleChange}/>
+                    <label>Building Type</label>
+                    <select name="buildingType" onChange={this.props.handleChange}>
+                        <option value="0">Select...</option>
+                        {this.props.buildingTypes.map(makeBuildingType)}
+                    </select>
                 </div>
             </div>
         );
