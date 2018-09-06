@@ -1,0 +1,33 @@
+.filtersContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+
+.filtersContainer .filter {
+
+    padding: 0.5rem 1rem;
+
+    flex-shrink: 0;
+    flex-grow: 0;
+    flex-basis: 15rem;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+}
+
+.filtersContainer .filter > * {
+    flex-shrink: 0;
+    flex-grow: 0;
+    flex-basis: 2rem;
+}
+
+.filtersContainer .filter > input,
+.filtersContainer .filter > select,
+.filtersContainer .filter > select > option {
+    text-align: center;
+    flex-basis: 1.5rem;
+}
