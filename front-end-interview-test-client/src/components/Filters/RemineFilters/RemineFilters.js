@@ -5,27 +5,37 @@ import './RemineFilters.css';
 class RemineFilters extends Component {
     render() {
         const makeBuildingType = (buildingType) => {
-            return (<option value={buildingType.id}>{buildingType.name}</option>);
+            return (<option key={buildingType.id} value={buildingType.id}>{buildingType.name}</option>);
         };
 
         return (
             <div className="filtersContainer">
                 <div className="filter">
                     <label>Beds</label>
-                    <input type="number" name="beds" onChange={this.props.handleChange}/>
-                    <label><input type="checkbox" name="bedsAtLeast" value="checked" onChange={this.props.handleChange}/> at least</label>
+                    <div>
+                        <label>At Least: <input type="number" name="bedsLow" onChange={this.props.handleChange}
+                            placeholder="0" /></label>
+                        <label>No More Than: <input type="number" name="bedsHigh" onChange={this.props.handleChange}
+                            placeholder="(no limit)"/></label>
+                    </div>
                 </div>
                 <div className="filter">
                     <label>Baths</label>
-                    <input type="number" name="baths" onChange={this.props.handleChange}/>
-                    <label><input type="checkbox" name="bathsAtLeast" value="checked" onChange={this.props.handleChange}/> at least</label>
+                    <div>
+                        <label>At Least: <input type="number" name="bathsLow" onChange={this.props.handleChange}
+                            placeholder="0" /></label>
+                        <label>No More Than: <input type="number" name="bathsHigh" onChange={this.props.handleChange}
+                            placeholder="(no limit)"/></label>
+                    </div>
                 </div>
                 <div className="filter">
                     <label>Building Type</label>
-                    <select name="buildingType" onChange={this.props.handleChange}>
-                        <option value="0">Select...</option>
-                        {this.props.buildingTypes.map(makeBuildingType)}
-                    </select>
+                    <div className="styled-select">
+                        <select name="buildingType" onChange={this.props.handleChange}>
+                            <option key="0" value="0">Select...</option>
+                            {this.props.buildingTypes.map(makeBuildingType)}
+                        </select>
+                    </div>
                 </div>
             </div>
         );
