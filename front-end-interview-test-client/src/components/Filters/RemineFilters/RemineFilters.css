@@ -36,42 +36,31 @@
     text-align: center;
 }
 
+.filtersContainer .filter.buildingTypes {
+    flex-basis: 22rem;
+}
+
+.filtersContainer .filter > .buildingTypes {
+    flex-basis: 4rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.filtersContainer .filter .buildingTypes input {
+    position: static;
+}
+
 .filtersContainer .filter > * {
     flex-shrink: 0;
     flex-grow: 0;
     flex-basis: 2rem;
 }
 
-.filtersContainer .filter > div > label > input,
-.filtersContainer .filter > select,
-.filtersContainer .filter > select > option {
+.filtersContainer .filter > div > label > input {
     text-align: center;
     flex-basis: 1.5rem;
-}
-.filtersContainer .filter > div > label > input {
     font-size: 1rem;
     padding: 0.15rem 0.05rem;
     height: 1.1rem;
-}
-.filtersContainer .filter > select,
-.filtersContainer .filter > select > option {
-    font-size: 1rem;
-    padding: 0.5rem;
-    height: 1.5rem;
-}
-
-.styled-select {
-    background-color: white;
-
-    height: 1.5rem;
-    width: 15rem;
-    overflow: hidden;
-}
-.styled-select select {
-    background: transparent;
-
-    font-size: 1rem;
-    height: 1.5rem;
-    padding: 0.5rem;
-    width: 15rem;
 }

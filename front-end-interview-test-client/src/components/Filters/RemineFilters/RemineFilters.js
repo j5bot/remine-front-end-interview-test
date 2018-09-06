@@ -5,7 +5,9 @@ import './RemineFilters.css';
 class RemineFilters extends Component {
     render() {
         const makeBuildingType = (buildingType) => {
-            return (<option key={buildingType.id} value={buildingType.id}>{buildingType.name}</option>);
+            return (<label key={buildingType.id}>
+                    <input type="checkbox" className="multi" value={buildingType.id} name="buildingType" onChange={this.props.handleChange}/> {buildingType.name}
+                </label>);
         };
 
         return (
@@ -28,13 +30,10 @@ class RemineFilters extends Component {
                             placeholder="(no limit)"/></label>
                     </div>
                 </div>
-                <div className="filter">
+                <div className="filter buildingTypes">
                     <label>Building Type</label>
-                    <div className="styled-select">
-                        <select name="buildingType" onChange={this.props.handleChange}>
-                            <option key="0" value="0">Select...</option>
-                            {this.props.buildingTypes.map(makeBuildingType)}
-                        </select>
+                    <div className="buildingTypes">
+                        {this.props.buildingTypes.map(makeBuildingType)}
                     </div>
                 </div>
             </div>
