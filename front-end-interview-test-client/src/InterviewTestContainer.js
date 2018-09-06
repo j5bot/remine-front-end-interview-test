@@ -61,14 +61,30 @@ class InterviewTestContainer extends Component {
     handleFilterChange(event) {
         const name = event.target.name;
         let value = event.target.value;
+        const multi = event.target.className.indexOf('multi') !== -1;
 
         const filters = this.state.filters;
 
-        if (!Boolean(value)) {
-            delete filters[name];
+        if (multi) {
+            filters[name] = filters[name] || {};
+            if (!Boolean(value)) {
+                delete filters[name][value];
+                if (Object.keys(filters[name]).length === 0) {
+                    delete filters[name];
+                }
+            } else {
+                filters[name][value] = true;
+            }
         } else {
-            filters[name] = parseInt(value, 10);
+            if (!Boolean(value)) {
+                delete filters[name];
+            } else {
+                filters[name] = parseInt(value, 10);
+            }
         }
+
+        console.log(filters);
+
         this.setState({filters});
         this.filterLocations(filters);
     }
@@ -86,21 +102,25 @@ class InterviewTestContainer extends Component {
             return;
         }
 
+        console.log(Object.keys(filters.buildingType).length);
+
         const filteredLocations = this.state.locations.filter(
             (location) => {
 
                 switch(true) {
-                    case (filters.bedsLow || filters.bedsHigh) &&
-                        (
-                            location.beds < (filters.bedsLow || 0) ||
-                            location.beds > (filters.bedsHigh || Math.infinity)
-                        ):
-                    case (filters.bathsLow || filters.bathsHigh) &&
-                        (
-                            location.baths < (filters.bathsLow || 0) ||
-                            location.baths > (filters.bathsHigh || Math.infinity)
-                        ):
-                    case filters.buildingType && filters.buildingType !== location.buildingType.id:
+                    case (filters.bedsLow || filters.bedsHigh) && (
+                        location.beds < (filters.bedsLow || 0) ||
+                        location.beds > (filters.bedsHigh || Math.infinity)
+                    ):
+                    case (filters.bathsLow || filters.bathsHigh) && (
+                        location.baths < (filters.bathsLow || 0) ||
+                        location.baths > (filters.bathsHigh || Math.infinity)
+                    ):
+                    case filters.buildingType &&
+                        Object
+                            .keys(filters.buildingType)
+                                .indexOf(String(location.buildingType.id)) ===
+                                    -1:
                         return false;
                     default:
                         return true;
