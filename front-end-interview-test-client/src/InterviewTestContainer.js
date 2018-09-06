@@ -60,14 +60,8 @@ class InterviewTestContainer extends Component {
 
     handleFilterChange(event) {
         const name = event.target.name;
-        const checked = event.target.checked;
         let value = event.target.value;
 
-        if (value === 'checked') {
-            value = (checked && 1) || 0;
-        }
-
-        console.log(name, value, checked);
         const filters = this.state.filters;
 
         if (!Boolean(value)) {
@@ -85,8 +79,6 @@ class InterviewTestContainer extends Component {
             this.state.filteredLocationsCache[currentFilter];
         const isCached = Boolean(cachedFilteredLocations);
 
-        console.log( currentFilter );
-
         if (isCached) {
             this.setState({
                 filteredLocations: cachedFilteredLocations
@@ -98,10 +90,16 @@ class InterviewTestContainer extends Component {
             (location) => {
 
                 switch(true) {
-                    case filters.beds && filters.bedsAtLeast && filters.beds > location.beds:
-                    case filters.beds && !filters.bedsAtLeast && filters.beds !== location.beds:
-                    case filters.baths && filters.bathsAtLeast && filters.baths > location.baths:
-                    case filters.baths && !filters.bathsAtLeast && filters.baths !== location.baths:
+                    case (filters.bedsLow || filters.bedsHigh) &&
+                        (
+                            location.beds < (filters.bedsLow || 0) ||
+                            location.beds > (filters.bedsHigh || Math.infinity)
+                        ):
+                    case (filters.bathsLow || filters.bathsHigh) &&
+                        (
+                            location.baths < (filters.bathsLow || 0) ||
+                            location.baths > (filters.bathsHigh || Math.infinity)
+                        ):
                     case filters.buildingType && filters.buildingType !== location.buildingType.id:
                         return false;
                     default:
