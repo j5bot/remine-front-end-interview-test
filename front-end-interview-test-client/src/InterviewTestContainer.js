@@ -17,6 +17,7 @@ class InterviewTestContainer extends Component {
 
     componentDidMount() {
         this.initializeBuildingTypes();
+        this.initializeLocations();
     }
 
     initializeBuildingTypes() {
@@ -25,6 +26,18 @@ class InterviewTestContainer extends Component {
         buildingTypesPromise.then(
             (resolved) => {
                 this.setState({buildingTypes: resolved.data});
+            }
+        );
+    }
+
+    initializeLocations() {
+        const locationsPromise = API.getLocations();
+
+        locationsPromise.then(
+            (resolved) => {
+                this.setState({
+                    locations: resolved.data
+                });
             }
         );
     }
