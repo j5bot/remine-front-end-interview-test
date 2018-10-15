@@ -83,8 +83,6 @@ class InterviewTestContainer extends Component {
             }
         }
 
-        console.log(filters);
-
         this.setState({filters});
         this.filterLocations(filters);
     }
@@ -101,8 +99,6 @@ class InterviewTestContainer extends Component {
             });
             return;
         }
-
-        console.log(Object.keys(filters.buildingType).length);
 
         const filteredLocations = this.state.locations.filter(
             (location) => {
